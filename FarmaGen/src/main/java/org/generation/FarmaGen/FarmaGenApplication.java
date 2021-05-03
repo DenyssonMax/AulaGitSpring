@@ -1,0 +1,13 @@
+package org.generation.FarmaGen;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class FarmaGenApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(FarmaGenApplication.class, args);
+	}
+
+}
