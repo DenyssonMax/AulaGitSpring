@@ -1,30 +1,37 @@
 package org.generation.FarmaGen.Model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 
 public class Categoria {
 
-	
-	//atributos
+	// atributos
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@NotNull
-	@Size(max = 20)
+	@Size(max = 30)
 	private String departamento;
 
-	private String higiene;
+	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("categoria")
+	private List<Produto> produto;
 
-	private String saude;
-
+	
+	//gets and sets
 	public long getId() {
 		return id;
 	}
@@ -41,21 +48,12 @@ public class Categoria {
 		this.departamento = departamento;
 	}
 
-	public String getHigiene() {
-		return higiene;
+	public List<Produto> getProduto() {
+		return produto;
 	}
 
-	public void setHigiene(String higiene) {
-		this.higiene = higiene;
+	public void setProduto(List<Produto> produto) {
+		this.produto = produto;
 	}
 
-	public String getSaude() {
-		return saude;
-	}
-
-	public void setSaude(String saude) {
-		this.saude = saude;
-	}
-
-	
 }
