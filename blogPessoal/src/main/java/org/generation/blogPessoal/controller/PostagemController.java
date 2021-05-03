@@ -7,15 +7,21 @@ import org.generation.blogPessoal.model.Postagem;
 import org.generation.blogPessoal.repository.PostagemRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/Postagem")
-@CrossOrigin("*")  // usado para que ele possa ser consumidor de qualquer origem
+@RequestMapping("/Postagens")
+@CrossOrigin("*")  // usado para que ele possa ser consumido de qualquer origem
 public class PostagemController {
 
 	@Autowired // usado para injeção de dependencia. Garanti que todas as informações sejam acessadas pelo controller. 
@@ -27,8 +33,31 @@ public class PostagemController {
 		
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<Postagem> Getbyid(@PathVariable long id){
+		return repository.findById(id)
+				.map(resp -> ResponseEntity.ok(resp))
+				.orElse(ResponseEntity.notFound().build());
+	}
 	
+	@GetMapping("/titulo/{titulo}")
+	public ResponseEntity<List<Postagem>> getByTitulo (@PathVariable String titulo){
+		return ResponseEntity.ok(repository.fifindAllByTituloContainingIgnoreCase(titulo));
+	}
 	
+	@PostMapping
+	public ResponseEntity<Postagem> post (@RequestBody Postagem postagem){
+		return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(postagem));
+	}
 	
+	@PutMapping
+	public ResponseEntity<Postagem> put (@RequestBody Postagem postagem){
+		return ResponseEntity.status(HttpStatus.OK).body(repository.save(postagem));
 	
+	}
+	
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable long id) {
+		repository.deleteById(id);
+	}
 }
