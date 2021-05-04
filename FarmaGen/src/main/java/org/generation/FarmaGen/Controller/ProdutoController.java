@@ -2,7 +2,7 @@ package org.generation.FarmaGen.Controller;
 
 import java.util.List;
 
-import org.generation.FarmaGen.Model.Categoria;
+
 import org.generation.FarmaGen.Model.Produto;
 import org.generation.FarmaGen.Repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class ProdutoController {
 		return ResponseEntity.ok(repository.findAll());
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/{id} ")
 	public ResponseEntity<Produto> GetById(@PathVariable long id) {
 		return repository.findById(id)
 				.map(resp -> ResponseEntity.ok(resp))
