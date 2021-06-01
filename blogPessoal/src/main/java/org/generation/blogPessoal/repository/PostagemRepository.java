@@ -7,8 +7,7 @@ import org.springframework.stereotype.Repository;
 
 // aplicação responsável pela comunicação com o banco de dados 
 @Repository
-public interface PostagemRepository extends JpaRepository<Postagem, Long>{
 
-	//public List<Postagem> findAllByTituloContaingIgnoreCase(String titulo); // para instanciar tudo que estiver em titulo na classe model 
-	
+public interface PostagemRepository extends JpaRepository<Postagem, Long> {
+	public List<Postagem> findAllByTituloContainingIgnoreCase(String titulo);
 }
